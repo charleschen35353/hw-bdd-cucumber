@@ -22,7 +22,14 @@ Background: movies have been added to database
   And  I am on the RottenPotatoes home page
   Then 10 seed movies should exist
 
+
 Scenario: restrict to movies with 'PG' or 'R' ratings
+  Given I am on the RottenPotatoes home page
+  When I check the following ratings: PG, R
+  And I uncheck the following ratings: G, PG-13, NC-17
+  And I press "Refresh" 
+  Then I should see the following movies: The Terminator, When Harry Met Sally, Amelie, The Incredibles, Raiders of the Lost Ark 
+  
   # enter step(s) to check the 'PG' and 'R' checkboxes
   # enter step(s) to uncheck all other checkboxes
   # enter step to "submit" the search form on the homepage
@@ -30,4 +37,7 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to ensure that other movies are not visible
 
 Scenario: all ratings selected
-  # see assignment
+  Given I am on the RottenPotatoes home page
+  When I check the following ratings: PG, R, PG-13, G, NC-17
+  And I press "Refresh"
+  Then I should see all of the movies
